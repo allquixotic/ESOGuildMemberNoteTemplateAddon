@@ -1,6 +1,8 @@
 # ESOGuildMemberNoteTemplateAddon
 Elder Scrolls Online Guild Member Note Template Addon
 
+Available on Minion / ESOUI at: https://www.esoui.com/downloads/info2196-GuildMemberNoteTemplate.html
+
 /gmnt - Guild Member Note Template
 Usage: <index> <@handle> [arguments...]
  - index: REQUIRED. The 1-based number corresponding to the template to apply (see addon settings)
