@@ -1,5 +1,5 @@
 --[[
-Copyright 2018 Sean McNamara <smcnam@gmail.com>.
+Copyright 2018-2019 Sean McNamara <smcnam@gmail.com>.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
@@ -47,19 +47,19 @@ local function gmnt_divineConclaveTemplates()
 	gmnt_savedVariables.templates = {
 		[1] = {
 				guild = "The Divine Conclave",
-				text = "$DATE $SELFAT\nNEEDS APP\n\nCharacter Name:\r $1\n\nPath: (undecided) / Order: (Undecided)  / Sect: (Undecided) \r\n\nForum name: ",
+				text = "$DATE $SELFAT\nNEEDS APPLICATION\nCharacter Name:\r $1\nPath: (Undecided) / Order: (Undecided)  / Sect: (Undecided) \r\nForum name:",
 			},
 		[2] = {
 				guild = "The Divine Conclave",
-				text = "$DATE $1\nNEEDS APP\n\nCharacter Name:\r $2\n\nPath: (undecided) / Order: (Undecided)  / Sect: (Undecided) \r\n\nForum name: ",
+				text = "$DATE $1\nNEEDS APPLICATION\nCharacter Name:\r $2\nPath: (Undecided) / Order: (Undecided)  / Sect: (Undecided) \r\nForum name:",
 			},
 		[3] = {
 				guild = "The Divine Conclave",
-				text = "$1 $2\nNEEDS APP\n\nCharacter Name:\r $3\n\nPath: (undecided) / Order: (Undecided)  / Sect: (Undecided) \r\n\nForum name: ",
+				text = "$1 $2\nNEEDS APPLICATION\nCharacter Name:\r $3\nPath: (Undecided) / Order: (Undecided)  / Sect: (Undecided) \r\nForum name:",
 			},
 		[4] = {
 				guild="The Divine Conclave",
-				text="$1's Disciple\n\nCharacter Name: $2\n\nPath (Undecided) / Order (Undecided) / Sect (Undecided)\n\nForum Name: $3"
+				text="$1's Disciple\nCharacter Name: $2\nPath (Undecided) / Order (Undecided) / Sect (Undecided)\nForum name: $3"
 			},
 		[5]={guild="", text=""},
 		[6]={guild="", text=""},
@@ -149,11 +149,20 @@ local function gmnt_interp(noteTemplate)
 	local metadata = gmnt_getPlayerGuildIndexes(gmnt_requestData.player, gmnt_requestData.gid)
 	curr = (curr:gsub("%$SELFAT", gmnt_playerAt):gsub("%$THEMCHAR", metadata.charName))
 	local c = 0
+	-- d("First: " .. curr)
+	-- d("args: ")
 	for k,v in pairs(gmnt_requestData.args) do 
 		c = c + 1 
 		if v == nil or v == "nil" then v = "" end
-		curr = (curr:gsub("$" .. tostring(c), v))
+		curr = (curr:gsub("%$" .. tostring(c), v))
+		-- d("arg: " .. tostring(k) .. "=" .. tostring(v))
 	end
+	-- d("Before: " .. curr)
+	for i=50,1,-1 do
+		curr = curr:gsub("%$" .. tostring(i), "")
+	end
+	-- d("After: " .. curr)
+
 	return curr
 end
 
